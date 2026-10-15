@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mr Stars — звёзды Telegram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&family=Unbounded:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14172b; --bg2:#1c2040; --ink:#f6ead6; --mute:#a9a6b8; --line:#2f3358;
+  --gold:#ffc43d; --gold2:#ff9a1f; --maple:#c4452d; --on-gold:#2a1a05;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){--bg:#fbf3e4;--bg2:#f3e5cc;--ink:#2a2140;--mute:#76708a;--line:#e3d2b3;--gold:#f2a516;--gold2:#e2811a;--maple:#b53a25;color-scheme:light}
+}
+:root[data-theme="dark"]{--bg:#14172b;--bg2:#1c2040;--ink:#f6ead6;--mute:#a9a6b8;--line:#2f3358}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.d{font-family:Unbounded,Onest,sans-serif;letter-spacing:-.02em}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font:600 17px Unbounded,sans-serif;display:flex;align-items:center;gap:10px}
+.logo i{width:12px;height:12px;background:var(--gold);clip-path:polygon(50% 0,62% 36%,100% 38%,70% 60%,80% 100%,50% 76%,20% 100%,30% 60%,0 38%,38% 36%)}
+header a.t{font-size:15px;color:var(--mute);transition:color .25s}
+header a.t:hover{color:var(--ink)}
+
+.hero{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:20px;padding:56px 0 90px}
+h1{font:600 clamp(36px,6.4vw,68px)/1.04 Unbounded,sans-serif;letter-spacing:-.035em;margin:0 0 22px}
+.hero p{max-width:30em;color:var(--mute);margin:0 0 34px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--on-gold);font:500 16px Onest,sans-serif;padding:15px 28px;border-radius:999px;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background .3s;box-shadow:0 8px 28px -10px var(--gold2)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px var(--gold2);background:#ffd25e}
+.btn:active{transform:translateY(0)}
+.ghost{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.ghost:hover{background:var(--bg2);box-shadow:inset 0 0 0 1px var(--gold)}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap}
+
+.stage{position:relative;aspect-ratio:1;max-width:400px;width:100%;margin-left:auto}
+.stage::before{content:"";position:absolute;inset:6%;border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(255,170,40,.4),transparent 68%);animation:pulse 5s ease-in-out infinite}
+.stage svg{position:relative;width:100%;height:100%;overflow:visible;animation:float 6s ease-in-out infinite;transition:transform .2s ease-out}
+@keyframes float{50%{translate:0 -14px}}
+@keyframes pulse{50%{opacity:.55;transform:scale(.93)}}
+.load{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.load.b{animation-delay:.12s}.load.c{animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}}
+
+section{padding:70px 0;border-top:1px solid var(--line)}
+h2{font:600 clamp(26px,4vw,40px)/1.1 Unbounded,sans-serif;letter-spacing:-.03em;margin:0 0 10px}
+.sub{color:var(--mute);margin:0 0 38px;max-width:34em}
+
+.pack{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:24px;padding:22px 20px;margin:0 -20px;border-bottom:1px solid var(--line);border-radius:16px;position:relative;transition:background .35s,padding .35s}
+.pack:hover{background:var(--bg2);padding-left:32px}
+.pack .n{font:600 clamp(26px,4vw,38px) Unbounded,sans-serif;letter-spacing:-.03em;display:flex;align-items:baseline;gap:12px}
+.pack .n small{font:400 14px Onest,sans-serif;color:var(--mute);letter-spacing:0}
+.pack .p{font:500 clamp(18px,2.6vw,24px) Unbounded,sans-serif;font-variant-numeric:tabular-nums}
+.pack .p s{text-decoration:none;color:var(--mute);font-size:.7em;margin-left:3px}
+.pack .btn{padding:11px 22px;font-size:15px}
+.pack.hot .n::after{content:"выбирают чаще";font:500 12px Onest,sans-serif;color:var(--on-gold);background:var(--gold);border-radius:999px;padding:2px 10px;letter-spacing:0}
+
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;background:var(--bg2);border-radius:28px;padding:44px}
+.calc label{display:block;color:var(--mute);font-size:14px;margin-bottom:8px}
+.field{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--line);transition:border-color .3s}
+.field:focus-within{border-color:var(--gold)}
+.field input{all:unset;font:600 clamp(34px,6vw,54px) Unbounded,sans-serif;letter-spacing:-.03em;width:100%;min-width:0;color:var(--ink);font-variant-numeric:tabular-nums}
+.field span{color:var(--gold);font:600 18px Unbounded,sans-serif}
+.sum{font:600 clamp(34px,6vw,54px) Unbounded,sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-bottom:22px}
+.sum small{font-size:.4em;color:var(--mute);margin-left:6px}
+.rate{color:var(--mute);font-size:14px;margin:0 0 20px}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:36px;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding-top:54px;color:var(--mute)}
+.steps li::before{content:counter(s);position:absolute;top:0;left:0;font:600 40px/1 Unbounded,sans-serif;color:var(--gold)}
+.steps b{display:block;color:var(--ink);font:500 18px Onest,sans-serif;margin-bottom:4px}
+
+details{border-bottom:1px solid var(--line);padding:20px 0}
+summary{cursor:pointer;font:500 18px Onest,sans-serif;list-style:none;display:flex;justify-content:space-between;gap:20px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-size:26px;line-height:1;transition:transform .35s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mute);margin:12px 0 0;max-width:40em}
+
+footer{padding:50px 0 60px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--mute);font-size:14px}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:20px}
+  .stage{max-width:260px;margin:0 auto;order:-1}
+  .calc{grid-template-columns:1fr;padding:28px;gap:28px}
+  .steps{grid-template-columns:1fr;gap:28px}
+  .pack{grid-template-columns:1fr auto;gap:12px;margin:0 -12px;padding:18px 12px}
+  .pack .p{grid-row:2;grid-column:1}
+  .pack .btn{grid-row:1/3;grid-column:2}
+  .pack:hover{padding-left:12px}
+  .pack.hot .n::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#top"><i></i>Mr Stars</a>
+    <a class="t" href="#prices">Цены</a>
+  </header>
+
+  <div class="hero" id="top">
+    <div>
+      <h1 class="load">Звёзды Telegram без лишних шагов</h1>
+      <p class="load b">Выберите количество, нажмите «Купить» — и бот сам проведёт вас до оплаты. Звёзды приходят на ваш аккаунт.</p>
+      <div class="row load c">
+        <a class="btn" href="https://t.me/Stars_MrBot" target="_blank" rel="noopener">Купить звёзды</a>
+        <a class="btn ghost" href="#prices">Смотреть цены</a>
+      </div>
+    </div>
+    <div class="stage" id="stage">
+      <svg viewBox="0 0 200 200" aria-label="Улыбающаяся звезда в очках">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#ffab1f"/></linearGradient>
+        </defs>
+        <polygon points="100,25 123.5,72.6 176.1,80.3 138,117.4 147,169.7 100,145 53,169.7 62,117.4 23.9,80.3 76.5,72.6" fill="url(#g)" stroke="url(#g)" stroke-width="20" stroke-linejoin="round"/>
+        <g fill="#1b1430">
+          <rect x="57" y="92" width="38" height="25" rx="9"/><rect x="105" y="92" width="38" height="25" rx="9"/>
+          <rect x="93" y="98" width="14" height="4"/>
+        </g>
+        <path d="M63 99l8-5M111 99l8-5" stroke="#ff9a52" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        <path d="M86 128q14 11 28 0" fill="none" stroke="#7a4309" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <section id="prices">
+    <h2>Сколько звёзд нужно?</h2>
+    <p class="sub">Цена считается по курсу 1,46 ₽ за звезду. Нажмите «Купить» — откроется бот.</p>
+    <div id="packs"></div>
+  </section>
+
+  <section>
+    <div class="calc">
+      <div>
+        <h2>Своё количество</h2>
+        <p class="sub" style="margin:0">От 50 звёзд, любое число.</p>
+      </div>
+      <div>
+        <label for="n">Звёзд</label>
+        <div class="field"><input id="n" type="number" inputmode="numeric" min="50" step="1" value="350"><span>★</span></div>
+        <p class="rate">Курс: 1 ★ = 1,46 ₽</p>
+        <div class="sum" id="sum">511<small>₽</small></div>
+        <a class="btn" href="https://t.me/Stars_MrBot" target="_blank" rel="noopener">Купить звёзды</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Как это работает</h2>
+    <p class="sub">Три действия, пара минут.</p>
+    <ol class="steps">
+      <li><b>Выберите пакет</b>Определитесь с количеством звёзд на этой странице.</li>
+      <li><b>Откройте бот</b>Кнопка «Купить» ведёт в @Stars_MrBot.</li>
+      <li><b>Оплатите</b>Следуйте подсказкам бота — звёзды поступят на аккаунт.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Вопросы</h2>
+    <div style="margin-top:30px">
+      <details><summary>Куда приходят звёзды?</summary><p>На тот аккаунт Telegram, который вы укажете в боте при оформлении.</p></details>
+      <details><summary>Есть ли минимальный заказ?</summary><p>Минимум — 50 звёзд. Больше — сколько нужно.</p></details>
+      <details><summary>Что делать, если что-то пошло не так?</summary><p>Напишите в боте @Stars_MrBot — ответим и поможем разобраться.</p></details>
+    </div>
+  </section>
+
+  <footer>
+    <span class="d" style="color:var(--ink)">Mr Stars</span>
+    <a href="https://t.me/Stars_MrBot" target="_blank" rel="noopener">@Stars_MrBot</a>
+  </footer>
+</div>
+
+<script>
+var RATE=1.46, BOT="https://t.me/Stars_MrBot";
+var fmt=new Intl.NumberFormat("ru-RU");
+var price=function(n){return Math.round(n*RATE)};
+var sizes=[50,100,250,500,1000,2500,5000,10000];
+document.getElementById("packs").innerHTML=sizes.map(function(s){
+  return '<div class="pack'+(s===500?' hot':'')+'"><div class="n">'+fmt.format(s)+'<small>звёзд</small></div>'+
+  '<div class="p">'+fmt.format(price(s))+'<s>₽</s></div>'+
+  '<a class="btn" href="'+BOT+'" target="_blank" rel="noopener">Купить</a></div>';
+}).join("");
+
+var n=document.getElementById("n"), sum=document.getElementById("sum"), shown=511, raf;
+function animateTo(target){
+  cancelAnimationFrame(raf);
+  var from=shown, t0=performance.now();
+  (function step(t){
+    var k=Math.min(1,(t-t0)/350), e=1-Math.pow(1-k,3);
+    shown=Math.round(from+(target-from)*e);
+    sum.firstChild.nodeValue=fmt.format(shown);
+    if(k<1)raf=requestAnimationFrame(step);
+  })(t0);
+}
+n.addEventListener("input",function(){
+  var v=Math.max(0,Math.min(10000000,parseInt(n.value,10)||0));
+  animateTo(price(v));
+});
+n.addEventListener("blur",function(){
+  var v=parseInt(n.value,10)||0; if(v<50){n.value=50;animateTo(price(50));}
+});
+
+var stage=document.getElementById("stage"), svg=stage.querySelector("svg");
+if(window.matchMedia("(hover:hover)").matches){
+  stage.addEventListener("mousemove",function(e){
+    var r=stage.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    svg.style.transform="rotate("+(x*14)+"deg) translate("+(x*10)+"px,"+(y*10)+"px)";
+  });
+  stage.addEventListener("mouseleave",function(){svg.style.transform=""});
+}
+</script>
+</body>
+</html>
